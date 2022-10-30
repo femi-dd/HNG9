@@ -127,3 +127,4 @@ dist
 .pnp.*
 .DS_Store
 stage_1/package-lock.json
+package-lock.json
