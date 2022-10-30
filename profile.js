@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({ origin: true, credentials: true, }));
+app.use(cors({'access-control-allow-origin': '*'}));
 
 app.get('/backend_track/stage_1/', (request, response) => {
     response.send({
