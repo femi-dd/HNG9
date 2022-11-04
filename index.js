@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const Operations = require("./Operations");
 const app = express();
 
 app.use(cors({ "access-control-allow-origin": "*" }));
@@ -18,30 +19,30 @@ app.get("/backend_track/stage_1/", (request, response) => {
 
 app.post("/backend_track/math/", (request, response) => {
   const input = request.body;
-  if (
-    !input.operation_type ||
-    !parseInt(input.x) ||
-    !parseInt(input.y)
-  ) {
+  if (!input.operation_type) {
     response.status(400).send({ error: "Missing fields" });
   } else {
-    result = {
+    let result = {
       slackUsername: "femi_dd",
       result: 0,
-      operation_type: input.operation_type,
+      operation_type: Operations.work(input.operation_type),
     };
-    switch (input.operation_type) {
+
+    switch (result.operation_type) {
       case "addition":
-        result.result = parseInt(input.x) + parseInt(input.y);
+        result.result = Operations.add(input.x, input.y);
         break;
       case "subtraction":
-        result.result = parseInt(input.x) - parseInt(input.y);
+        result.result = Operations.subtract(input.x, input.y);
         break;
       case "multiplication":
-        result.result = parseInt(input.x) * parseInt(input.y);
+        result.result = Operations.multiply(input.x, input.y);
+        break;
+      case "division":
+        result.result = Operations.divide(input.x, input.y);
         break;
       default:
-        error: response.status(400).send({ error: "Mising fields!" });
+        console.log(input);
         break;
     }
     response.status(200).send(result);
