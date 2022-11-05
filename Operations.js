@@ -27,7 +27,6 @@ function work(operation) {
 
   dict.forEach((value, index) => {
     operation.forEach((op) => {
-      console.log(op);
       if (value.includes(op) || operation_copy.includes(dict[index][value])) {
         f = dict[index][0];
       }
