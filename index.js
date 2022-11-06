@@ -42,7 +42,7 @@ app.post("/backend_track/math/", (request, response) => {
         result.result = Operations.divide(input.x, input.y);
         break;
       default:
-        console.log(input);
+        console.log('Happy Coding!');
         break;
     }
     response.status(200).send(result);

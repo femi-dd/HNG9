@@ -15,9 +15,10 @@ function divide(x, y) {
 }
 
 function work(operation) {
-  let operation_copy = operation
+  let operation_copy = operation;
+  let f;
+
   operation = operation.split(" ");
-  let f = "";
   const dict = [
     ["addition", "+", "plus", "add", "sum"],
     ["subtraction", "subract", "-", "minus", "difference"],
@@ -25,13 +26,22 @@ function work(operation) {
     ["division", "divide", "/", "division"],
   ];
 
-  dict.forEach((value, index) => {
-    operation.forEach((op) => {
-      if (value.includes(op) || operation_copy.includes(dict[index][value])) {
-        f = dict[index][0];
-      }
+  let symbol = operation_copy.match(/[+-/*//]/);
+
+  if (symbol != null) {
+    symbol[0] == "+" ? (f = dict[0][0]) : "";
+    symbol[0] == "-" ? (f = dict[1][0]) : "";
+    symbol[0] == "*" ? (f = dict[2][0]) : "";
+    symbol[0] == "/" ? (f = dict[3][0]) : "";
+  } else {
+    dict.forEach((value, index) => {
+      operation.forEach((op) => {
+        if (value.includes(op)) {
+          f = dict[index][0];
+        }
+      });
     });
-  });
+  }
 
   return f;
 }
